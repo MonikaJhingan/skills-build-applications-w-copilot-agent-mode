@@ -1,23 +1,26 @@
-from rest_framework import viewsets
+from rest_framework import generics
 from .models import User, Team, Activity, Leaderboard, Workout
 from .serializers import UserSerializer, TeamSerializer, ActivitySerializer, LeaderboardSerializer, WorkoutSerializer
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-class TeamViewSet(viewsets.ModelViewSet):
+class TeamList(generics.ListCreateAPIView):
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
 
-class ActivityViewSet(viewsets.ModelViewSet):
+class ActivityList(generics.ListCreateAPIView):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializer
 
-class LeaderboardViewSet(viewsets.ModelViewSet):
+class LeaderboardList(generics.ListCreateAPIView):
     queryset = Leaderboard.objects.all()
     serializer_class = LeaderboardSerializer
 
-class WorkoutViewSet(viewsets.ModelViewSet):
+class WorkoutList(generics.ListCreateAPIView):
     queryset = Workout.objects.all()
     serializer_class = WorkoutSerializer
+
+def api_root(request):
+    return Response({"message": "Welcome to OctoFit API!"})
