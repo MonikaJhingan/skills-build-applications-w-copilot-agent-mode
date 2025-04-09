@@ -126,14 +126,13 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # CORS settings
-CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
 CORS_ALLOW_HEADERS = ['*']
 
-# Configure CORS settings
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Example: Allow requests from a React frontend
     "http://127.0.0.1:3000",
 ]
-# Alternatively, to allow all origins (not recommended for production):
+
+# Removed redundant setting
 # CORS_ALLOW_ALL_ORIGINS = True
