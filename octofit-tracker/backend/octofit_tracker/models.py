@@ -1,6 +1,8 @@
+# filepath: /workspaces/skills-build-applications-w-copilot-agent-mode/octofit-tracker/backend/octofit_tracker/models.py
 from djongo import models
 
 class User(models.Model):
+    id = models.ObjectIdField(primary_key=True)  # Use ObjectIdField for compatibility with djongo
     username = models.CharField(max_length=100)
     email = models.EmailField()
     password = models.CharField(max_length=100)

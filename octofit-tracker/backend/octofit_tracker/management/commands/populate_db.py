@@ -14,41 +14,39 @@ class Command(BaseCommand):
 
         # Populate Users
         users = [
-            {"name": "Alice Johnson", "email": "alice@example.com"},
-            {"name": "Bob Smith", "email": "bob@example.com"},
-            {"name": "Charlie Brown", "email": "charlie@example.com"},
+            {"username": "alice", "email": "alice@example.com", "password": "password123"},
+            {"username": "bob", "email": "bob@example.com", "password": "password123"},
         ]
-        for user_data in users:
-            User.objects.create(**user_data)
+        user_instances = [User.objects.create(**user_data) for user_data in users]
 
         # Populate Teams
         teams = [
-            {"name": "Team Alpha", "description": "The first team"},
-            {"name": "Team Beta", "description": "The second team"},
+            {"name": "Team Alpha", "members": [user_instances[0]]},
+            {"name": "Team Beta", "members": [user_instances[1]]},
         ]
         for team_data in teams:
-            Team.objects.create(**team_data)
+            team = Team.objects.create(name=team_data["name"], members=team_data["members"])
 
         # Populate Activities
         activities = [
-            {"name": "Running", "calories_burned_per_minute": 10},
-            {"name": "Cycling", "calories_burned_per_minute": 8},
+            {"user": user_instances[0], "activity_type": "Running", "duration": 30},
+            {"user": user_instances[1], "activity_type": "Cycling", "duration": 45},
         ]
         for activity_data in activities:
             Activity.objects.create(**activity_data)
 
         # Populate Leaderboard
         leaderboard_entries = [
-            {"user_id": 1, "team_id": 1, "points": 100},
-            {"user_id": 2, "team_id": 2, "points": 80},
+            {"user": user_instances[0], "score": 100},
+            {"user": user_instances[1], "score": 80},
         ]
         for entry in leaderboard_entries:
             Leaderboard.objects.create(**entry)
 
         # Populate Workouts
         workouts = [
-            {"user_id": 1, "activity_id": 1, "duration_minutes": 30},
-            {"user_id": 2, "activity_id": 2, "duration_minutes": 45},
+            {"name": "Morning Run", "description": "A quick morning run"},
+            {"name": "Evening Cycle", "description": "A relaxing evening cycle"},
         ]
         for workout_data in workouts:
             Workout.objects.create(**workout_data)
